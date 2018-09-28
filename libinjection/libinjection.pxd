@@ -5,18 +5,20 @@ cdef extern from *:
 
 
 cdef extern from "stdlib.h":
-    void free(void* )
     void* malloc(size_t)
+    void free(void* )
 
 
 cdef extern from "libinjection_sqli.h":
     ctypedef struct c_stoken_t "stoken_t":
-        char    _type
-        char    str_open
-        char    str_close
         size_t  pos
         size_t  len
+
         int     count
+
+        char    type
+        char    str_open
+        char    str_close
         char    val[32]
 
     ctypedef struct c_sfilter "sfilter":
@@ -26,9 +28,9 @@ cdef extern from "libinjection_sqli.h":
         int             flags
         size_t          pos
 
-        c_stoken_t      tokenvec[6]
-        c_stoken_t      current
-        char            fingerprint[6]
+        c_stoken_t      tokenvec[8]
+        c_stoken_t      *current
+        char            fingerprint[8]
 
         int             reason
         int             stats_comment_ddw

@@ -1,6 +1,6 @@
 __pycache__
 *.py[cod]
-src/libinjection.c
+libinjection/libinjection.c
 
 # C extensions
 *.so
