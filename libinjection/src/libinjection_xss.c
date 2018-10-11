@@ -209,6 +209,95 @@ static const char* BLACKTAG[] = {
     , "XSS"
     , NULL
 };
+static const char* BLACK_ON_ATTR[] = {
+    "ONSTART",
+    "ONERROR",
+    "ONCLICK",
+    "ONMOUSEDOWN",
+    "ONMOUSEENTER",
+    "ONMOUSELEAVE",
+    "ONMOUSEMOVE",
+    "ONMOUSEOUT",
+    "ONMOUSEOVER",
+    "ONMOUSEUP",
+    "ONMOUSEWHEEL",
+    "ONPROPERTYCHANGE",
+    "ONFORMCHANGE",
+    "ONFORMINPUT",
+    "ONABORT",
+    "ONREADYSTATECHANGE",
+    "ONACTIVATE",
+    "ONBEFOREACTIVATE",
+    "ONAFTERPRINT",
+    "ONBEFOREPRINT",
+    "ONBEFOREUNLOAD",
+    "ONBLUR",
+    "ONCANPLAY",
+    "ONCANPLAYTHROUGH",
+    "ONCHANGE",
+    "ONCONTEXTMENU",
+    "ONCOPY",
+    "ONCUT",
+    "ONDBLCLICK",
+    "ONDRAG",
+    "ONDRAGEND",
+    "ONDRAGENTER",
+    "ONDRAGLEAVE",
+    "ONDRAGOVER",
+    "ONDRAGSTART",
+    "ONDROP",
+    "ONDURATIONCHANGE",
+    "ONEMPTIED",
+    "ONENDED",
+    "ONFOCUS",
+    "ONFOCUSIN",
+    "ONFOCUSOUT",
+    "ONHASHCHANGE",
+    "ONINPUT",
+    "ONINVALID",
+    "ONKEYDOWN",
+    "ONKEYPRESS",
+    "ONKEYUP",
+    "ONLOAD",
+    "ONLOADEDDATA",
+    "ONLOADEDMETADATA",
+    "ONLOADSTART",
+    "ONMESSAGE",
+    "ONOFFLINE",
+    "ONONLINE",
+    "ONOPEN",
+    "ONPAGEHIDE",
+    "ONPAGESHOW",
+    "ONPASTE",
+    "ONPAUSE",
+    "ONPLAY",
+    "ONPLAYING",
+    "ONPOPSTATE",
+    "ONPROGRESS",
+    "ONRATECHANGE",
+    "ONRESET",
+    "ONRESIZE",
+    "ONSCROLL",
+    "ONSEARCH",
+    "ONSEEKED",
+    "ONSEEKING",
+    "ONSELECT",
+    "ONSHOW",
+    "ONSTALLED",
+    "ONSTORAGE",
+    "ONSUBMIT",
+    "ONSUSPEND",
+    "ONTIMEUPDATE",
+    "ONTOGGLE",
+    "ONTOUCHCANCEL",
+    "ONTOUCHEND",
+    "ONTOUCHMOVE",
+    "ONTOUCHSTART",
+    "ONUNLOAD",
+    "ONVOLUMECHANGE",
+    "ONWAITING",
+    "ONWHEEL"
+};
 
 
 static int cstrcasecmp_with_null(const char *a, const char *b, size_t n)
@@ -334,21 +423,23 @@ static int is_black_tag(const char* s, size_t len)
 
 static attribute_t is_black_attr(const char* s, size_t len)
 {
+    unsigned int i;
     stringtype_t* black;
 
     if (len < 2) {
         return TYPE_NONE;
     }
 
-    if (len >= 5) {
-        /* JavaScript on.* */
-        if ((s[0] == 'o' || s[0] == 'O') && (s[1] == 'n' || s[1] == 'N')) {
-            /* printf("Got JavaScript on- attribute name\n"); */
-            return TYPE_BLACK;
+    /* JavaScript on.* */
+    if ((s[0] == 'o' || s[0] == 'O') && (s[1] == 'n' || s[1] == 'N')) {
+        for (i = 0; i < sizeof(BLACK_ON_ATTR)/sizeof(char*); ++i) {
+            if (cstrcasecmp_with_null(BLACK_ON_ATTR[i], s, strlen(BLACK_ON_ATTR[i])) == 0) return TYPE_BLACK;
         }
+        /* printf("Got JavaScript on- attribute name\n"); */
+    }
 
 
-
+    if (len >= 5) {
         /* XMLNS can be used to create arbitrary tags */
         if (cstrcasecmp_with_null("XMLNS", s, 5) == 0 || cstrcasecmp_with_null("XLINK", s, 5) == 0) {
             /*      printf("Got XMLNS and XLINK tags\n"); */
