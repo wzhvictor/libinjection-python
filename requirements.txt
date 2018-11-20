@@ -1,1 +1,2 @@
+setuptools>=38.3.0
 Cython>=0.23

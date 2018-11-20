@@ -1,6 +1,4 @@
-from distutils.core import setup
-from distutils.extension import Extension
-
+from setuptools import setup, Extension
 from Cython.Distutils import build_ext
 
 source_files = [
@@ -13,7 +11,7 @@ cmd_class = {'build_ext': build_ext}
 
 setup(
     name='libinjection-python',
-    version='0.2',
+    version='1.1.3',
     author='wzhvictor',
     author_email='wzhvictor@outlook.com',
     url='https://github.com/wzhvictor/libinjection-python',
@@ -31,6 +29,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     packages=[],
+    include_package_data=True,
     cmdclass=cmd_class,
     ext_modules=[Extension(
         name='libinjection',
@@ -38,5 +37,8 @@ setup(
         include_dirs=['libinjection/src'],
         library_dirs=['libinjection/src'])
     ],
-    install_requires=open('requirements.txt').read().splitlines()
+    install_requires=[
+        'setuptools>=38.3.0',
+        'Cython>=0.23'
+    ]
 )

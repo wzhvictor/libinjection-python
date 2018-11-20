@@ -13,7 +13,7 @@ Libinjection-python is a wrapper based on Cython for the [Libinjection library](
 
 ### Installation
 ```
-python setup.py install
+pip install libinjection-python
 ```
 
 ### Usage
