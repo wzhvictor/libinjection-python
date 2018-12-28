@@ -11,7 +11,7 @@ cmd_class = {'build_ext': build_ext}
 
 setup(
     name='libinjection-python',
-    version='1.1.3',
+    version='1.1.4',
     author='wzhvictor',
     author_email='wzhvictor@outlook.com',
     url='https://github.com/wzhvictor/libinjection-python',
