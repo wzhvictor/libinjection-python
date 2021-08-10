@@ -37,7 +37,7 @@ setup(
         include_dirs=['libinjection/src'],
         library_dirs=['libinjection/src'])
     ],
-    install_requires=[
+    setup_requires=[
         'setuptools>=38.3.0',
         'Cython>=0.23'
     ]
