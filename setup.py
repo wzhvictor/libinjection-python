@@ -50,5 +50,4 @@ setup(
     packages=[],
     include_package_data=True,
     ext_modules=extensions,
-    install_requires=["setuptools>=38.3.0"],
 )
