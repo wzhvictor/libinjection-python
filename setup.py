@@ -50,5 +50,5 @@ setup(
     packages=[],
     include_package_data=True,
     ext_modules=extensions,
-    setup_requires=["setuptools>=38.3.0", "Cython>=0.23"],
+    install_requires=["setuptools>=38.3.0"],
 )
