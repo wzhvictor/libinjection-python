@@ -121,8 +121,8 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux_image }}
           CIBW_MANYLINUX_I686_IMAGE: ${{ matrix.manylinux_image }}
           CIBW_TEST_COMMAND: "echo Wheel installed"
-          CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
-          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
+          #CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
+          #CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
           CIBW_BUILD_VERBOSITY: 1
 
         run: python -m cibuildwheel --output-dir wheelhouse
