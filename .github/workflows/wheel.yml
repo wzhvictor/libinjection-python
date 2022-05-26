@@ -54,7 +54,6 @@ jobs:
             platform_id: manylinux_x86_64
             manylinux_image: manylinux2014
 
-
           # Linux 64 bit musllinux 2014
           - os: ubuntu-latest
             python: 38
@@ -66,15 +65,12 @@ jobs:
             bitness: 64
             platform_id: musllinux_x86_64
             manylinux_image: musllinux_1_1
-            cp38-musllinux_x86_64
           - os: ubuntu-latest
             python: 310
             bitness: 64
             platform_id: musllinux_x86_64
             manylinux_image: musllinux_1_1
           
-
-
           # MacOS x86_64
           - os: macos-latest
             bitness: 64
