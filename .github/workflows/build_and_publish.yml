@@ -1,5 +1,4 @@
-# Workflow to build and test wheels and source distribution
-name: Wheel builder
+name: Build And Publish Wheels And Source Distriburion
 
 on:
     push:
