@@ -118,11 +118,10 @@ jobs:
         env:
           CIBW_BUILD: cp${{ matrix.python }}-${{ matrix.platform_id }}
           CIBW_ARCHS: all
+          CIBW_ARCHS_MACOS: "x86_64 universal2 arm64"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux_image }}
           CIBW_MANYLINUX_I686_IMAGE: ${{ matrix.manylinux_image }}
-          CIBW_TEST_COMMAND: "echo Wheel installed"
-          #CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
-          #CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
+          CIBW_TEST_COMMAND: "python -c 'import libinjection;libinjection.is_xss(\"hello\")'" # sanity check 
           CIBW_BUILD_VERBOSITY: 1
 
         run: python -m cibuildwheel --output-dir wheelhouse
@@ -132,7 +131,6 @@ jobs:
         with:
           name: wheels
           path: ./wheelhouse/*.whl
-
 
       - name: Store artifacts
         uses: actions/upload-artifact@v2
@@ -171,3 +169,19 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: dist/*.tar.gz
+  publish:
+    needs: [build_sdist, build_wheels]
+    name: publish source distribution and wheels to pypi
+    steps:
+        - uses: actions/checkout@v2
+        - uses: actions/download-artifact@v3
+          with:
+            name: artifacts
+      - name: Display structure of downloaded files
+        run: ls -lAhR
+      - name: Publish distribution 📦 to PyPI
+        if: startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          
