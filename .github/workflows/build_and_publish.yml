@@ -1,4 +1,4 @@
-name: Build And Publish Wheels And Source Distriburion
+name: Build And Publish Wheels And Source Distribution
 
 on:
     push:
