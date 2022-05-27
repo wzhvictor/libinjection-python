@@ -7,6 +7,7 @@ libinjection/libinjection.c
 
 # Packages
 *.egg
+.eggs
 *.egg-info
 *.tar.gz
 dist
